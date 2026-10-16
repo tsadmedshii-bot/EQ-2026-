@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EQ тест – Сэтгэл хөдлөлийн оюун ухаан (Daniel Goleman)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eaf1f2;--card:#fff;--ink:#1d3640;--mute:#5d7580;--line:#d5e2e5;--acc:#2a7f86;--acc2:#e1f0f1;--good:#2f8f6b;--mid:#c8892b;--low:#c4566a}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1c21;--card:#17292f;--ink:#e6f0f2;--mute:#97b0b8;--line:#28414a;--acc:#5cc1c8;--acc2:#1d3a41;--good:#5fcf9f;--mid:#e5ac55;--low:#e5788c}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:99px;transition:width .5s ease}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin-top:6px}
+h1{font-size:clamp(28px,6vw,42px);line-height:1.15;margin:.2em 0 .4em;letter-spacing:-.02em}
+h2{font-size:clamp(22px,4.5vw,28px);margin:0 0 4px;letter-spacing:-.01em}
+p{margin:0 0 12px}
+.card{background:var(--card);border-radius:20px;padding:24px;box-shadow:0 8px 30px rgba(30,70,80,.08)}
+.screen{display:none}
+.screen.on{display:block;animation:in .45s ease both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.btn{font:inherit;font-weight:700;border:0;border-radius:14px;padding:14px 26px;background:var(--acc);color:#fff;cursor:pointer;font-size:16px;transition:transform .15s,opacity .2s}
+@media(prefers-color-scheme:dark){.btn{color:#0f1c21}}
+.btn:hover{transform:translateY(-1px)}.btn.ghost{background:var(--acc2);color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.scale{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;padding:0;list-style:none;font-size:14px;color:var(--mute)}
+.scale b{color:var(--ink)}
+.q{padding:18px 0;border-top:1px solid var(--line);border-radius:8px}
+.q.miss{background:rgba(196,86,106,.1);box-shadow:0 0 0 8px rgba(196,86,106,.1)}
+.q p{font-weight:500;margin-bottom:12px}
+.q .n{color:var(--acc);font-weight:800;margin-right:6px}
+.opts{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.opts label{cursor:pointer;text-align:center}
+.opts input{position:absolute;opacity:0}
+.opts span{display:block;border:2px solid var(--line);border-radius:12px;padding:8px 2px 6px;transition:all .15s;line-height:1.2}
+.opts span b{display:block;font-size:18px}
+.opts span small{font-size:11px;color:var(--mute)}
+.opts label:hover span{border-color:var(--acc)}
+.opts input:checked+span{background:var(--acc);border-color:var(--acc);color:#fff}
+.opts input:checked+span small{color:#fff}
+@media(prefers-color-scheme:dark){.opts input:checked+span,.opts input:checked+span small{color:#0f1c21}}
+.opts input:focus-visible+span{outline:3px solid var(--acc);outline-offset:2px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.note{font-size:14px;color:var(--mute)}
+.chart{display:block;width:100%;max-width:420px;margin:0 auto}
+.res{display:grid;gap:14px;margin-top:18px}
+.item{background:var(--card);border-radius:18px;padding:18px 20px;border-left:6px solid var(--c)}
+.item header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.item h3{margin:0;font-size:18px}
+.pts{font-weight:800;font-size:20px;color:var(--c)}
+.track{height:10px;background:var(--line);border-radius:99px;margin:10px 0;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--c);border-radius:99px;transition:width 1s ease}
+.lvl{font-weight:700;color:var(--c);margin-bottom:6px}
+.desc{font-size:14.5px;color:var(--mute);margin:0}
+@media(max-width:480px){.card{padding:18px 14px}.opts span small{font-size:9.5px}.opts{gap:4px}}
+@media print{header.top,.nav,.noprint{display:none!important}body{background:#fff}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top" id="hd" hidden>
+  <div class="bar"><i id="pb"></i></div>
+  <div class="meta"><span id="pl"></span><span id="pp"></span></div>
+</header>
+
+<section class="screen on" id="s-intro">
+  <div class="card" style="margin-top:24px">
+    <p class="note">Daniel Goleman-ы тест</p>
+    <h1>Сэтгэл хөдлөлийн оюун ухаан (EQ) таны түвшин</h1>
+    <p>5 чадвар, нийт 50 асуулт. Ойролцоогоор 8–10 минут. Зөв, буруу хариулт байхгүй — өөрт хамгийн ойр хариултыг шударгаар сонгоорой.</p>
+    <ul class="scale" id="legend"></ul>
+    <p style="margin-top:22px"><button class="btn" id="start">Тест эхлэх</button></p>
+  </div>
+</section>
+
+<div id="sections"></div>
+
+<section class="screen" id="s-result">
+  <div class="card" style="margin-top:8px">
+    <h2>Таны EQ-ийн үр дүн</h2>
+    <p class="note">Чадвар тус бүр 10–50 оноотой.</p>
+    <svg class="chart" id="radar" viewBox="0 0 400 340" role="img" aria-label="EQ-ийн 5 чадварын радар диаграм"></svg>
+  </div>
+  <div class="res" id="res"></div>
+  <div class="nav noprint" style="margin-top:22px">
+    <button class="btn ghost" id="retake">Дахин өгөх</button>
+    <button class="btn" id="print">Хэвлэх / PDF хадгалах</button>
+  </div>
+</section>
+</div>
+
+<script>
+const SCALE=["Огт үгүй","Хааяа","Заримдаа","Ихэвчлэн","Үргэлж"];
+const CATS=[
+{t:"Өөрийгөө мэдрэх",s:"Өөрийгөө мэдрэх",c:"#2a7f86",d:"Өөрийн сэтгэлийн хөдөлгөөнийг таних, тэр нь зан үйл, гүйцэтгэлд тань хэрхэн нөлөөлж буйг ойлгох чадвар. Энэ нь өөрийн чадвар, нөөц бололцоогоо бодитоор үнэлэх суурь болдог.",
+q:["Би уурлаж эхэлж байгаагаа тэр даруйд нь мэдэрдэг","Би аз жаргалтай байгаагаа мэдэрдэг","Би стрессд орсоноо мэдэрдэг.","Би сэтгэл хөдлөлөө мэдэрдэг.","Сэтгэл түгшсэн үедээ би ихэвчлэн шалтгааныг нь мэддэг.","Хүчтэй сэтгэл хөдлөлд автаж байгаагаа өөрөө мэдэрдэг.","Өөрийн сэтгэл хөдлөлийг мэдэрдэг байх нь чухал үздэг.","Хэн нэг нь намайг бухимдуулахад би хэлж чаддаг.","Би уур, бухимдалаа хурдан дарж чаддаг учраас надад төдийлөн нөлөөлдөггүй.","Намайг юу аз жаргалтай болгодогийг би мэддэг."]},
+{t:"Сэтгэл хөдлөлөө удирдах",s:"Сэтгэл хөдлөлөө удирдах",c:"#4a7bb8",d:"Сэтгэлийн хөдөлгөөн хүчтэй үед ч өөрийгөө хянаж, анхаарлаа төвлөрүүлж, бодитоор бодох чадвар. Хожим харамсах шийдвэрээс сэргийлж, үйлдэлдээ хариуцлага хүлээхэд илэрнэ.",
+q:["Таагүй нөхцөл байдлыг би хурдан залруулж чаддаг.","Би өөрийн сэтгэл хөдлөлөө нуудаггүй.","Миний зан байдал ямар байгааг хүмүүс тэр бүр мэддэггүй, анзаардаггүй","Би их бухимдсан үедээ ч биеэ сайн барьж чаддаг.","Хэцүү хүмүүс ч намайг тэр бүр уурлуулж чаддаггүй.","Би сэтгэл хөдлөл, зан авираа ойлгож өөрчилж чадна.","Дарамттай байдал болон бусад хүмүүс намайг ажлаа орхиход нөлөөлдөггүй","Би ажил, амьдралын талаар тэр бүр санаа зовоод байдаггүй.","Би шаардлагатай үед сэтгэл хөдлөлөө барьж чадна.","Хүмүүс миний ямар бодолтойг төдийлөн мэддэггүй."]},
+{t:"Өөрийгөө сэдэлжүүлэх, идэвхижүүлэх",s:"Өөрийгөө сэдэлжүүлэх",c:"#7a62b0",d:"Зорилгодоо хүрэхийн тулд сэтгэлийн хөдөлгөөнөө ашиглах чадвар. Нөхцөл байдлыг бодитоор үнэлж, санаачлага гаргаж, саад бэрхшээлийг давахад илэрнэ.",
+q:["Төвөгтэй даалгавар, ажлыг хийхдээ би өөрийгөө үргэлж зоригжуулж чаддаг","Би ажлыг чухлаас чухал биш рүү нь эрэмбэлж чаддаг","Би үргэлж товлосон хугацаандаа уулздаг","Би хэзээ ч цагийг үр ашиггүй үрдэггүй.","Би худлаа хэлдэггүй.","Аливаа зүйл хийхдээ хэцүүгээс нь эхэлж хийх ёстой гэж би боддог.","Хүлээцтэй байдал нь миний давуу тал болдог","Би идэвхитэй амьдралыг эрхэмлэдэг.","Би сэтгэл санаагаар унасан үедээ өөрийгөө сэдэлжүүлж /идэвхижүүлж/ чаддаг.","Миний амжилтанд идэвхижүүлэлт нэн чухал."]},
+{t:"Бусдыг ойлгох байдал",s:"Бусдыг ойлгох",c:"#2f8f6b",d:"Бусдын мэдэрч буй сэтгэлийн хөдөлгөөнийг ойлгох, хуваалцах, хариу үйлдэл үзүүлэх чадвар. Өөрийгөө мэдрэх чадвар сайн байх тусам бусдыг ойлгох чадвар өндөр байдаг.",
+q:["Би бусад хүмүүсийн үзэл бодлыг үргэлж ойлгож, мэдэрдэг.","Би бусдын асуудлыг ойлгож хүлээн авахдаа сайн.","Бусад хүмүүс надад сэтгэл дундуур байгааг би хараад л ойлгодог.","Багийн гишүүдийн харилцаа сайнгүй байгааг би хараад ойлгодог.","Хүмүүс надтай харилцаа муутай байх үед би учрыг нь ойлгодог.","Хүн бүр хэцүү биш зөвхөн өөр учраас л асуудал гардаг.","Өөрийн ухаангүй байгаагаа ойлгодог","Заримдаа миний үйлдэл яагаад бусдыг гомдоосныг би ойлгодог.","Би заримдаа бусдын байр сууринаас харж чаддаг.","Санал зөрөлдөөний шалтгаан нь надад үргэлж ойлгомжтой байдаг."]},
+{t:"Нийгмийн ур чадвар",s:"Нийгмийн ур чадвар",c:"#c8892b",d:"Бусдын сэтгэл хөдлөлийг удирдах, нөлөөлөх, сэдэлжүүлэх чадвар. Харилцаа, багаар хамтран ажиллах, удирдан чиглүүлэх, манлайлахад зайлшгүй хэрэгтэй.",
+q:["Би маш сайн сонсогч","Би бусдын ярианд хэзээ ч саад болдоггүй.","Би олон янзын хүмүүстэй зохицож, хамтарч чаддаг.","Миний хувьд хүмүүс амьдралын хамгийн сонирхолтой зүйл.","Би шинэ хүмүүстэй уулзах дуртай бөгөөд тэр агшинд юу хийхээ ч мэддэг","Ажлаа сонирхолтой байлгахад олон төрлийн хүмүүстэй ажиллах хэрэгтэй.","Хүмүүст юу чухал вэ гэдгийг мэдэхийн тулд асуух дуртай","Хэцүү хүмүүстэй ажиллах нь тэднийг ялах зүгээр л нэг сорил гэж би боддог","Бусад хүмүүсийн ялгаатай байдалд би сайн зохицон ажилладаг.","Би ерөнхийдөө хамтран ажилладаг хүмүүстэйгээ бат бөх харилцаа үүсгэдэг"]}
+];
+const $=id=>document.getElementById(id);
+const ans=new Array(50).fill(0);
+let cur=-1;
+
+$("legend").innerHTML=SCALE.map((s,i)=>`<li><b>${i+1}</b> = ${s}</li>`).join("");
+
+// Build section screens
+$("sections").innerHTML=CATS.map((c,ci)=>`
+<section class="screen" id="s-${ci}"><div class="card" style="margin-top:8px">
+<h2>${ci+1}. ${c.t}</h2><p class="note">Асуулт ${ci*10+1}–${ci*10+10}</p>
+${c.q.map((q,qi)=>{const n=ci*10+qi;return `<div class="q" id="q${n}"><p><span class="n">${n+1}.</span>${q}</p>
+<div class="opts" role="radiogroup" aria-label="Асуулт ${n+1}">${SCALE.map((s,v)=>`<label><input type="radio" name="q${n}" value="${v+1}"><span><b>${v+1}</b><small>${s}</small></span></label>`).join("")}</div></div>`}).join("")}
+<div class="nav"><button class="btn ghost" data-back>Буцах</button><button class="btn" data-next>${ci<4?"Үргэлжлүүлэх":"Үр дүн харах"}</button></div>
+</div></section>`).join("");
+
+document.addEventListener("change",e=>{
+  if(e.target.type!=="radio")return;
+  const n=+e.target.name.slice(1);ans[n]=+e.target.value;
+  $("q"+n).classList.remove("miss");updateBar();
+});
+document.addEventListener("click",e=>{
+  if(e.target.matches("[data-next]"))next();
+  if(e.target.matches("[data-back]"))show(cur-1);
+});
+$("start").onclick=()=>show(0);
+$("retake").onclick=()=>{ans.fill(0);document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);show(-1)};
+$("print").onclick=()=>window.print();
+
+function updateBar(){
+  const done=ans.filter(Boolean).length;
+  $("pb").style.width=(done/50*100)+"%";
+  $("pp").textContent=done+" / 50";
+}
+function show(i){
+  cur=i;
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));
+  const id=i===-1?"s-intro":i===5?"s-result":"s-"+i;
+  $(id).classList.add("on");
+  $("hd").hidden=(i===-1);
+  $("pl").textContent=i>=0&&i<5?`${i+1}/5 · ${CATS[i].t}`:"Дууслаа";
+  updateBar();
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(i===5)renderResult();
+}
+function next(){
+  const miss=[];
+  for(let n=cur*10;n<cur*10+10;n++)if(!ans[n])miss.push(n);
+  if(miss.length){
+    miss.forEach(n=>$("q"+n).classList.add("miss"));
+    $("q"+miss[0]).scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  show(cur+1);
+}
+function level(s){
+  if(s>=35)return{l:"Хүчтэй илэрэл — чадвар сайн",c:"var(--good)"};
+  if(s>=18)return{l:"Анхаарал хандуулах хэрэгтэй — хөгжил дунд зэрэг",c:"var(--mid)"};
+  return{l:"Хөгжүүлэх шаардлагатай — чадвар сул илэрч байна",c:"var(--low)"};
+}
+function renderResult(){
+  const sc=CATS.map((_,ci)=>ans.slice(ci*10,ci*10+10).reduce((a,b)=>a+b,0));
+  // Radar
+  const cx=200,cy=165,R=105,N=5;
+  const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/N;const r=R*v/50;return[cx+r*Math.cos(a),cy+r*Math.sin(a)]};
+  let g="";
+  [10,20,30,40,50].forEach(v=>{g+=`<polygon points="${CATS.map((_,i)=>pt(i,v).join(",")).join(" ")}" fill="none" stroke="var(--line)" stroke-width="1"/>`});
+  CATS.forEach((c,i)=>{
+    const[x,y]=pt(i,50),[lx,ly]=pt(i,66);
+    const anchor=lx<cx-5?"end":lx>cx+5?"start":"middle";
+    g+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)"/><text x="${lx}" y="${ly+4}" text-anchor="${anchor}" font-size="12.5" font-weight="700" fill="var(--ink)">${c.s}</text>`;
+  });
+  const poly=sc.map((v,i)=>pt(i,v).join(",")).join(" ");
+  g+=`<polygon points="${poly}" fill="var(--acc)" fill-opacity=".22" stroke="var(--acc)" stroke-width="2.5" stroke-linejoin="round"/>`;
+  sc.forEach((v,i)=>{const[x,y]=pt(i,v);g+=`<circle cx="${x}" cy="${y}" r="5" fill="${CATS[i].c}" stroke="var(--card)" stroke-width="2"/>`});
+  $("radar").innerHTML=g;
+  // Cards
+  $("res").innerHTML=CATS.map((c,i)=>{const L=level(sc[i]);
+    return `<div class="item" style="--c:${L.c}"><header><h3>${i+1}. ${c.t}</h3><span class="pts">${sc[i]}<small style="font-size:13px;color:var(--mute);font-weight:500"> / 50</small></span></header>
+    <div class="track"><i data-w="${(sc[i]/50*100).toFixed(0)}"></i></div>
+    <div class="lvl">${L.l}</div><p class="desc">${c.d}</p></div>`}).join("");
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll(".track i").forEach(b=>b.style.width=b.dataset.w+"%"),60));
+}
+</script>
+</body>
+</html>
